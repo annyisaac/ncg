@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCGR LTD - Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .gallery-intro {
+            margin-top: 80px;
+            position: relative;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-intro h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: #2d5016;
+        }
+
+        .gallery-intro p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: #6b8e23;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item-content {
+            padding: 1.5rem;
+        }
+
+        .gallery-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #2d5016;
+            font-weight: 600;
+        }
+
+        .gallery-item p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-item .category {
+            display: inline-block;
+            background: #6b8e23;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-item .date {
+            color: #999;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Categories */
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid #6b8e23;
+            color: #6b8e23;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #6b8e23;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c59 100%);
+            color: white;
+            padding: 4rem 0;
+            margin: 4rem 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: #90EE90;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        /* About Section */
+        .about-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 3rem 0;
+        }
+
+        .about-section h2 {
+            color: #2d5016;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .about-section p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d5016;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #90EE90;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: #90EE90;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            header .subtitle {
+                font-size: 1.1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .category-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .gallery-item {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.7s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Header -->
+    <header class="header">
+         <!-- Top Header Bar -->
+    <header class="top-header">
+        <div class="container">
+            <div class="contact-info">
+                <span>📞 +250 796 096 607</span>
+                <span>✉️ info@ncgrltdrwanda.com</span>
+            </div>
+            <div>Next Hatch: Every Friday</div>
+        </div>
+    </header>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo"> 
+                <img class="logo-icon" src="C:\Users\isaac\Desktop\Don't Open\web project\logo and img\ncgr_new_logo.png" alt="">
+            </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="service.html">Service</a></li>
+                    <li><a href="products.html">Our Breeds</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="gallery.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Gallery Section -->
+     <main>
+        <div class="container">
+            <section class="gallery-intro">
+                <h2>Our Hatchery Operations</h2>
+                <p>Explore our state-of-the-art facilities, premium breeding stock, and comprehensive hatchery services. From modern incubation systems to quality chick production, discover how NCGR Ltd maintains the highest standards in poultry breeding.</p>
+            </section>
+
+            <section class="category-filters">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Facilities</button>
+                <button class="filter-btn">Parent Stocks</button>
+                <button class="filter-btn">Day Old Chicks</button>
+                <button class="filter-btn">Equipment</button>
+                <button class="filter-btn">Products</button>
+                <button class="filter-btn">Quality Control</button>
+            </section>
+
+            <section class="gallery" id="gallery">
+                <div class="gallery-item">
+                    <img src="C:\Users\isaac\Desktop\Don't Open\web project\logo and img\setters.jpg" alt="Modern Incubation Facility">
+                    <div class="gallery-item-content">
+                        <div class="category">Facilities</div>
+                        <h3>Modern Incubation Facility</h3>
+                        <p>Our climate-controlled incubation facility features the latest technology for optimal egg development and hatching success rates.</p>
+                        <div class="date">Capacity: 50,000 eggs</div>
+                    </div>
+                </div>
+                <!-- Parent stocks  -->
+                <div class="gallery-item">
+                    <img src="C:\Users\isaac\Desktop\Don't Open\web project\logo and img\tetra new pic_page-0001(1)(1).png" alt="Premium Breeding Stock">
+                    <div class="gallery-item-content">
+                        <div class="category">Parent Stocks</div>
+                        <h3>Tetra Super Harco</h3>
+                        <p>High-quality parent stock carefully selected for superior genetics, health, and productivity to ensure excellent offspring.</p>
+                        <div class="date">In Production</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\isaac\Desktop\Don't Open\web project\logo and img\ross 308.png" alt="Premium Breeding Stock">
+                    <div class="gallery-item-content">
+                        <div class="category">Parent Stocks</div>
+                        <h3>Ross 308 </h3>
+                        <p>High-quality parent stock carefully selected for superior genetics, health, and productivity to ensure excellent offspring.</p>
+                        <div class="date">Multiple breeds available</div>
+                    </div>
+                </div>
+                <!-- Day Old Chicks -->
+                <div class="gallery-item">
+                    <img src="C:\Users\isaac\Desktop\Don't Open\web project\ai images\a973a440-d0ab-4c44-8e59-1c8723784d7a.jpg" alt="Automated Egg Collection">
+                    <div class="gallery-item-content">
+                        <div class="category">Day Old Chicks</div>
+                        <h3>High Quality Chicks</h3>
+                        <p>we provide fully vaccinated chicks every week</p>
+                        <div class="date">2% extra</div>
+                    </div>
+                </div><div class="gallery-item">
+                    <img src="/placeholder.svg?height=260&width=400" alt="Automated Egg Collection">
+                    <div class="gallery-item-content">
+                        <div class="category">Equipment</div>
+                        <h3>Automated Egg Collection</h3>
+                        <p>State-of-the-art automated systems ensure gentle handling and optimal freshness of eggs from collection to incubation.</p>
+                        <div class="date">99.5% collection efficiency</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=260&width=400" alt="Day-Old Chicks">
+                    <div class="gallery-item-content">
+                        <div class="category">Products</div>
+                        <h3>Premium Day-Old Chicks</h3>
+                        <p>Healthy, vaccinated day-old chicks ready for brooding. Available in various breeds for different production purposes.</p>
+                        <div class="date">Weekly availability</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=260&width=400" alt="Quality Control Laboratory">
+                    <div class="gallery-item-content">
+                        <div class="category">Quality Control</div>
+                        <h3>Quality Control Laboratory</h3>
+                        <p>On-site laboratory for health monitoring, disease prevention, and ensuring the highest quality standards in all our operations.</p>
+                        <div class="date">24/7 monitoring</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=260&width=400" alt="Brooding Facilities">
+                    <div class="gallery-item-content">
+                        <div class="category">Facilities</div>
+                        <h3>Modern Brooding Facilities</h3>
+                        <p>Temperature-controlled brooding houses providing optimal conditions for young chicks during their critical first weeks.</p>
+                        <div class="date">Climate controlled</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=260&width=400" alt="Feed Production">
+                    <div class="gallery-item-content">
+                        <div class="category">Products</div>
+                        <h3>Specialized Feed Production</h3>
+                        <p>Nutritionally balanced feed formulations designed specifically for different growth stages and production requirements.</p>
+                        <div class="date">Custom formulations</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=260&width=400" alt="Veterinary Services">
+                    <div class="gallery-item-content">
+                        <div class="category">Quality Control</div>
+                        <h3>Veterinary Services</h3>
+                        <p>Professional veterinary care and health management programs ensuring the wellbeing of our breeding stock and products.</p>
+                        <div class="date">Expert care team</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stats">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h3>95%</h3>
+                            <p>Hatch Rate Success</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>500K+</h3>
+                            <p>Chicks Produced Annually</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>7+</h3>
+                            <p>Years Experience</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>200+</h3>
+                            <p>Satisfied Customers</p>
+                        </div>
+                    </div>
+                </div>
+            
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>NCGR LTD</h3>
+                    <p>Your trusted partner for premium poultry breeds. Quality, reliability and excellence in every hatch.</p>
+                
+                <div class="social-icons">
+                    <a href="https://facebook.com" class="icon facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" class="icon twitter" target="_blank"><i class="fab fa-x"></i></a>
+                    <a href="https://instagram.com" class="icon instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/message/TRVDBSY5VJJOF1" class="icon whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>   
+                </div>  
+                <div class="footer-section">
+                    <h4>Our Breeds</h4>
+                    <ul>
+                        <li>Tetra Super Harco</li>
+                        <li>Ross 308</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="service.html">Service</a></li>
+                        <li><a href="products.html">Our Breeds</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 NCGR LTD. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    const filterValue = this.textContent.toLowerCase();
+
+                    // Filter gallery items
+                    galleryItems.forEach((item, index) => {
+                        const category = item.querySelector('.category').textContent.toLowerCase();
+                        
+                        if (filterValue === 'all' || category.includes(filterValue)) {
+                            item.style.display = 'block';
+                            item.style.animation = 'none';
+                            setTimeout(() => {
+                                item.style.animation = `fadeInUp 0.6s ease forwards`;
+                                item.style.animationDelay = `${index * 0.1}s`;
+                            }, 50);
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            // Gallery item click handler
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Add a subtle pulse effect when clicked
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+            
+        });
+    </script>
+</body>
+</html>
